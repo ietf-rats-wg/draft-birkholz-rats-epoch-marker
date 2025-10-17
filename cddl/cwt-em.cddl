@@ -1,0 +1,11 @@
+signed-epoch-marker = #6.18([
+  protected: cose.empty_or_serialized_map
+  unprotected: cose.header_map
+  payload: bytes .cbor cwt_em
+  signature: bytes
+])
+
+cwt_em = {
+  &(em: 2000) => epoch-marker
+  * any => any
+}

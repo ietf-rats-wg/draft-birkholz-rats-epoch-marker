@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-12T00:57:43.700905+00:00",
+  "timestamp": "2025-10-19T01:02:26.188133+00:00",
   "repo": "ietf-rats/draft-birkholz-rats-epoch-marker",
   "labels": [
     {
@@ -572,32 +572,48 @@
       "id": "I_kwDOHOmBp86PHauH",
       "title": "evidence and results should use CMWs",
       "url": "https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/issues/32",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nedmsmith",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "   The CDDL in epoch markers includes:\r\n```\r\nremote-attestation-evidence = (1: \"PLEASE DEFINE\")\r\nremote-attestation-result = (2: \"PLEASE DEFINE\")\r\n```\r\nShouldn't these be defined in terms [CMW](https://datatracker.ietf.org/doc/draft-ietf-rats-msg-wrap/) since CMW already distinguishes conceptual message type?\r\n\r\nFor example, the cddl might only need:\r\n```\r\n   bell-veracity-proof = non-empty<{\r\n     ? cmw-collection; contains evidence / results as appropriate\r\n     ? scitt-receipt ; SCITT receipt\r\n   }>\r\n```",
       "createdAt": "2024-07-10T15:35:13Z",
-      "updatedAt": "2024-07-10T15:35:13Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-17T12:51:12Z",
+      "closedAt": "2025-10-17T12:51:12Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "outdated and resolved",
+          "createdAt": "2025-10-17T12:51:12Z",
+          "updatedAt": "2025-10-17T12:51:12Z"
+        }
+      ]
     },
     {
       "number": 33,
       "id": "I_kwDOHOmBp86PHb4P",
       "title": "header in COSE that contains epoch marker should be described",
       "url": "https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/issues/33",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "nedmsmith",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Epoch markers are presumed to go into COSE signature headers. This should be described better and should include extensibility conventions for other forms of validity beyond epoch markers. ",
       "createdAt": "2024-07-10T15:37:37Z",
-      "updatedAt": "2024-07-10T15:45:07Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-17T12:52:11Z",
+      "closedAt": "2025-10-17T12:52:10Z",
+      "comments": [
+        {
+          "author": "henkbirkholz",
+          "authorAssociation": "COLLABORATOR",
+          "body": "outdated and resolved, due to increased of scope of application (and m-t and c-f, etc.)",
+          "createdAt": "2025-10-17T12:52:11Z",
+          "updatedAt": "2025-10-17T12:52:11Z"
+        }
+      ]
     },
     {
       "number": 36,
@@ -2740,6 +2756,139 @@
           "createdAt": "2025-10-09T13:46:27Z",
           "updatedAt": "2025-10-09T13:46:27Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOHOmBp86uUWhX",
+      "title": "CWT with an `em` claim",
+      "url": "https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/pull/48",
+      "state": "OPEN",
+      "author": "thomas-fossati",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-17T13:55:44Z",
+      "updatedAt": "2025-10-17T16:03:04Z",
+      "baseRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "baseRefName": "main",
+      "baseRefOid": "3faed951ea80a278fcf49d9bd30207ac4ca7ee7b",
+      "headRepository": "ietf-rats/draft-birkholz-rats-epoch-marker",
+      "headRefName": "signed-em",
+      "headRefOid": "1f180bda10f76fc54da0959fdda61955ff47a0d7",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHOmBp87HtgFC",
+          "commit": {
+            "abbreviatedOid": "7da7a6e"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I only had a quick glance...",
+          "createdAt": "2025-10-17T14:19:40Z",
+          "updatedAt": "2025-10-17T14:23:48Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "Who uses this?\r\n",
+              "createdAt": "2025-10-17T14:19:40Z",
+              "updatedAt": "2025-10-17T14:23:48Z"
+            },
+            {
+              "originalPosition": 2,
+              "body": "reason this doesn't use cose.Headers?\r\n",
+              "createdAt": "2025-10-17T14:20:00Z",
+              "updatedAt": "2025-10-17T14:23:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHOmBp87HtoPe",
+          "commit": {
+            "abbreviatedOid": "7da7a6e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T14:28:44Z",
+          "updatedAt": "2025-10-17T14:28:44Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "the CI to validate the example",
+              "createdAt": "2025-10-17T14:28:44Z",
+              "updatedAt": "2025-10-17T14:28:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHOmBp87HtrTM",
+          "commit": {
+            "abbreviatedOid": "7da7a6e"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T14:32:02Z",
+          "updatedAt": "2025-10-17T14:32:02Z",
+          "comments": [
+            {
+              "originalPosition": 2,
+              "body": "There's no good reason; it was just an oversight on my part.",
+              "createdAt": "2025-10-17T14:32:02Z",
+              "updatedAt": "2025-10-17T14:32:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHOmBp87Httol",
+          "commit": {
+            "abbreviatedOid": "1f180bd"
+          },
+          "author": "thomas-fossati",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T14:34:46Z",
+          "updatedAt": "2025-10-17T14:34:46Z",
+          "comments": [
+            {
+              "originalPosition": 1,
+              "body": "Sorry I misunderstood the comment.  Fixed in [1f180bd](https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/pull/48/commits/1f180bda10f76fc54da0959fdda61955ff47a0d7)",
+              "createdAt": "2025-10-17T14:34:46Z",
+              "updatedAt": "2025-10-17T14:34:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHOmBp87Hu53s",
+          "commit": {
+            "abbreviatedOid": "1f180bd"
+          },
+          "author": "cabo",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T16:02:40Z",
+          "updatedAt": "2025-10-17T16:03:04Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "maybe put pack / signature / before h'...\r\n",
+              "createdAt": "2025-10-17T16:02:40Z",
+              "updatedAt": "2025-10-17T16:03:04Z"
+            }
+          ]
         }
       ]
     }

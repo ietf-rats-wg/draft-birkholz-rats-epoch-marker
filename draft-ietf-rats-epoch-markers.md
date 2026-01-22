@@ -242,10 +242,6 @@ The Epoch Bell COSE signature will replace the TSA signature.
 
 ### CBOR-encoded RFC3161 TST Info {#sec-rfc3161-fancy}
 
-[^issue] https://github.com/ietf-rats/draft-birkholz-rats-epoch-marker/issues/18
-
-[^issue]: Issue tracked at:
-
 The TST-info-based-on-CBOR-time-tag is semantically equivalent to classical {{-TSA}} TSTInfo, rewritten using the CBOR type system.
 
 ~~~~ cddl

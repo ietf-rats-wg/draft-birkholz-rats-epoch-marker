@@ -391,7 +391,30 @@ Conversely, applying the first signature to an Epoch Marker always makes the iss
 
 # Security Considerations {#sec-seccons}
 
-TODO
+The following subsections approach categories of threats and security issues that may affect systems using Epoch Markers.
+
+## Trust Model
+
+Freshness decisions derived from Epoch Markers depend on the Epoch Bell’s key(s) and correct behavior.
+If the Epoch Bell key is compromised, or the Bell is malicious/misconfigured, an attacker can emit valid-looking “fresh” Epoch Markers.
+Deployments SHOULD protect Bell signing keys (secure storage, rotation, revocation) and scope acceptance to the intended trust domain (e.g., expected issuer/trust anchor).
+
+## Epoch Signalling Issues
+
+A network adversary can replay validly signed Epoch Markers or delay distribution, and differential latency can lead to different parties having different views of the “current” epoch.
+Deployments SHOULD define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for skew.
+
+The epoch (acceptable window) duration is an operational security parameter: if too long, an Attester can create “good” Evidence in a good state and release it later while the epoch is still acceptable (notably for epoch-tick, epoch-tick-list, and strictly-monotonic-counter); if too short, distant Attesters may be rejected as stale due to latency.
+Epoch Markers are also designed to be reusable by multiple consumers, unlike nonces.
+Where per-session uniqueness is required, protocols SHOULD bind Epoch Markers to an explicit nonce (e.g., see {{sec-epoch-markers}}).
+Finally, deployments SHOULD pin which Epoch Marker types are acceptable for a given trust domain to avoid downgrade.
+
+## State Management and Sequencing
+
+Some Epoch Marker types require receiver state to detect replay/rollback or establish sequencing.
+For epoch-tick-list, freshness requires receiver-side state to identify the “next unused” tick; deployments SHOULD define how missing/out-of-order ticks are handled and how resynchronization occurs.
+For strictly-monotonic-counter, receivers must track the highest accepted counter to detect rollback.
+Deployments SHOULD document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.
 
 # IANA Considerations {#sec-iana-cons}
 

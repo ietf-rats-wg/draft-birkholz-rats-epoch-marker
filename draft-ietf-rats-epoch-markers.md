@@ -398,6 +398,7 @@ The following subsections discuss threats and security issues that may affect sy
 Freshness decisions derived from Epoch Markers depend on the Epoch Bell’s key(s) and correct behavior.
 If the Epoch Bell key is compromised, or the Bell is malicious/misconfigured, an attacker can emit valid-looking “fresh” Epoch Markers.
 Deployments should protect Bell signing keys (secure storage, rotation, revocation) and scope acceptance to the intended trust domain (e.g., expected issuer/trust anchor).
+Similarly, the Bell's clock must be securely sourced and managed, to prevent attacks that skew the Bell's perception of time.
 
 ## Epoch Signalling Issues
 

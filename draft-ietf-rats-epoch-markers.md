@@ -426,6 +426,24 @@ Epoch Markers are also designed to be reusable by multiple consumers, unlike non
 Where per-session uniqueness is required, protocols typically need to bind Epoch Markers to an explicit nonce (e.g., see {{sec-epoch-markers}}).
 Finally, deployments are normally required to pin which Epoch Marker types are acceptable for a given trust domain to avoid downgrade.
 
+## Operational Examples
+
+The following illustrative cases highlight “reasonable best practice” choices for balancing freshness, replay protection, and scalability.
+
+* *Nonce-bound Bell interaction*: When a Verifier uses a nonce challenge to trigger Evidence creation, the Attester can forward that nonce to the Epoch Bell to request an Epoch Marker with the nonce echoed inside.
+For reuse and caching, the typical pattern is to keep the marker generic and embed the Verifier nonce alongside the marker in the Evidence: if the Bell signs a nonce-echoed marker, that marker is not reusable across sessions.
+The nonce and marker are thus either bound by the Bell's signature, or by the attester's signature on the Evidence.
+The Verifier checks that (1) the nonce matches its challenge, (2) the Epoch Marker signature chains to the expected Bell key, and (3) the marker satisfies the acceptance policy (e.g., highest-seen counter or time window).
+This pairing gives per-session uniqueness while still allowing Epoch Marker reuse by multiple consumers.
+
+* *Long-latency paths (e.g., LoRaWAN or DTN profiles)*: High propagation and queuing delays make tight epoch windows brittle.
+Deployments can pre-provision an epoch-tick-list to Attesters so that each interaction consumes the next tick, with the Verifier keeping per-Attester sequencing state ({{sec-state-seq-mgmt}}).
+Epoch duration should cover worst-case delivery plus clock skew of the Bell, and acceptance policies should allow an overlap (e.g., current and immediately previous epoch) to absorb in-flight drift while still rejecting replays beyond that window.
+
+* *Large fleets sharing a Bell*: When many Attesters reuse the same Epoch Marker, per-Attester state at the Verifier may be impractical.
+One approach is to accept a global highest-seen epoch (with a bounded replay window) while requiring each Evidence record to bind the Epoch Marker to the Attester identity and, when feasible, a Verifier-provided nonce.
+This limits cross-attester replay of a single marker while enabling stateless caching or broadcast distribution of Epoch Markers at scale.
+
 # IANA Considerations {#sec-iana-cons}
 
 [^rfced-replace]

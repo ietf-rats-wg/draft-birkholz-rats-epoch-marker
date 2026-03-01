@@ -180,7 +180,7 @@ Using an Epoch Marker requires the challenger to acquire an Epoch Marker beforeh
 
 # Epoch Marker Structure {#sec-epoch-markers}
 
-This section specifies Epoch Marker types using {{CDDL}} and illustrates their usage and relationship with other IETF work (e.g, {{TSA}}) where applicable.
+This section specifies the structure of Epoch Marker types using {{CDDL}} and illustrates their usage and relationship with other IETF work (e.g, {{TSA}}) where applicable.
 In general, Epoch Markers are intended to be conveyed securely, e.g., by being conveyed via a signed data structure, such as a CBOR Web Token (CWT), or by being conveyed via a secure channel.
 The specification of such "outer" structures and protocols and the means how to secure them is out-of-scope of this document.
 This documents defines the different types of Epoch Markers {{sec-iana-cbor-tags}}.

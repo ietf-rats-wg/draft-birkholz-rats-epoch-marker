@@ -1292,7 +1292,8 @@ Internet-Draft                Epoch Markers                   March 2026
 
 Acknowledgements
 
-   TODO
+   The authors would like to thank Carl Wallace, Jeremy O'Donoghue and
+   Jun Zhang for their reviews, suggestions and comments.
 
 Authors' Addresses
 
@@ -1328,7 +1329,6 @@ Authors' Addresses
    Germany
    Phone: +49-421-218-63921
    Email: cabo@tzi.org
-
 
 
 

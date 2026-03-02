@@ -345,9 +345,8 @@ Internet-Draft                Epoch Markers                   March 2026
    represent certain timestamp variants, these Epoch Markers or the
    secure conveyance method they are used in do not necessarily have a
    hard-coded message imprint, as is always the case with [RFC3161]
-   TimeStampTokens.  Essentially, not all Epoch Marker types support a
-   binding between a message and an Epoch Marker (unlike the example in
-   Figure 5.
+   TimeStampTokens.  This means that not all Epoch Marker types support
+   binding a message to an Epoch Marker (unlike the example in Figure 5.
 
    The following Epoch Marker types are defined in this document:
 
@@ -386,6 +385,7 @@ Internet-Draft                Epoch Markers                   March 2026
    The CBOR Time Tag represents a freshly sourced timestamp represented
    as either time or tdate (Sections 3.4.2 and 3.4.1 of RFC 8949
    [STD94], Appendix D of [RFC8610]), or etime (Section 3 of [RFC9581]).
+
 
 
 

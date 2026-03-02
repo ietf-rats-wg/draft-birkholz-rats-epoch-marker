@@ -319,14 +319,14 @@ Internet-Draft                Epoch Markers                   March 2026
    similar in function to a [RFC3161] TimeStampToken, using CWT and the
    em Claim defined in this document (see Figure 5 for an illustration).
    The value(s) that an Epoch Marker represents are intended to
-   demonstrate freshness of application messages and protocols, but they
-   can also serve other purposes in cases where trusted timestamps or
-   time intervals are required.  Taken as an opaque value, it is
-   possible to use Epoch Markers as values for a nonce field in existing
-   data structures or protocols that already support extra data fields,
-   such as TPM [TCG-TPM2].  Similarities in the usage of nonces and
-   Epoch Markers can sometimes lead to applications where both are used
-   in the same interaction, albeit in different places and for different
+   demonstrate freshness of messages and protocols, but they can also
+   serve other purposes in cases where trusted timestamps or time
+   intervals are required.  Taken as an opaque value, it is possible to
+   use Epoch Markers as values for a nonce field in existing data
+   structures or protocols that already support extra data fields, such
+   as TPM [TCG-TPM2].  Similarities in the usage of nonces and Epoch
+   Markers can sometimes lead to applications where both are used in the
+   same interaction, albeit in different places and for different
    purposes.  One example of such an application scenario is the
    "nested" use of classical nonces and Epoch Markers, whereby an Epoch
    Marker is requested to be used as a nonce value for a specific data

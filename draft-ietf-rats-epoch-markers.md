@@ -227,6 +227,8 @@ CBOR Time Tags are CBOR time representations choosing from CBOR tag 0 (`tdate`, 
 
 The CBOR Time Tag represents a freshly sourced timestamp represented as either `time` or `tdate`
 ({{Sections 3.4.2 and 3.4.1 of RFC8949@-CBOR}}, {{Appendix D of -CDDL}}), or `etime` ({{Section 3 of -CBOR-ETIME}}).
+The `etime` rule shown in the CDDL above is imported from {{Section 6 of -CBOR-ETIME}}; RFC 9581 remains the authoritative specification of CBOR tag 1001, and this document neither updates nor redefines it.
+This document merely profiles `etime` for use with Epoch Markers.
 
 
 #### Creation
@@ -299,16 +301,21 @@ Cf. serialNumber, {{Section 2.4.2 of -TSA}}.
 eTime:
 : The time at which the tst-info has been created by the TSA.
 Cf. genTime, {{Section 2.4.2 of -TSA}}.
-Encoded as extended time {{-CBOR-ETIME}}, indicated by CBOR tag 1001, profiled as follows:
+Encoded as extended time {{-CBOR-ETIME}}, indicated by CBOR tag 1001.
+A separate tag is unnecessary because the profiled form remains an `etime` item carried with tag 1001.
+RFC 9581 defines tag 1001 and its semantics; this document constrains one valid `etime` shape for Epoch Markers but does not introduce a new CBOR tag or alter the definition of `etime`.
+The resulting `profiled-etime` remains a subset/profile of `etime` encoded with tag 1001 and is defined as follows:
 
-- The "base time" is encoded using key 1, indicating Posix time as int or float.
+- The "base time" is encoded using key 1, indicating Posix time as int or float, to align the profile with the baseline representation defined in {{-CBOR-ETIME}}.
 - The stated "accuracy" is encoded using key -8, which indicates the maximum
   allowed deviation from the value indicated by "base time". The duration map
-  is profiled to disallow string keys. This is an optional field.
-- The map MAY also contain one or more integer keys, which may encode
-  supplementary information [^tf1].
+  is profiled to disallow string keys. This is an optional field specialized to the needs of this profile.
+- The map MUST include key 1 and MAY include additional negative integer keys, which can be used to encode supplementary information.
+  Unsigned integer keys, including 4, 5, and the keys in the $$ETIME-CRITICAL group choice, MUST NOT be used, unless the emitter wants to ensure that only implementations that understand the critical key interoperate.
 
-[^tf1]: Allowing unsigned integer (i.e., critical) keys goes counter interoperability
+Fixing key 1 for the base time and profiling key -8 provide a consistent shape for the profiled `etime` maps consumed by Epoch Markers without changing the meaning of the corresponding keys in {{-CBOR-ETIME}}.
+Key 1 is pinned so all profiled `etime` values share the same base-time representation, and key -8 is specialized to carry the accuracy bound expected by the TSA-style timestamps used here.
+The permissive `* int => any` entry remains to allow other members defined by {{-CBOR-ETIME}} and future extensions; implementations still rely on {{-CBOR-ETIME}} for the full semantics and validation of `etime` beyond the constraints listed here.
 
 {:vspace}
 ordering:

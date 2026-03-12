@@ -1,3 +1,5 @@
+CDDLC_FRAGS := cbor-time-tag.cddl
+
 EPOCH_MARKER_FRAGS := epoch-marker.cddl
 EPOCH_MARKER_FRAGS += cbor-time-tag.cddl
 EPOCH_MARKER_FRAGS += classical-rfc3161-tst-info.cddl

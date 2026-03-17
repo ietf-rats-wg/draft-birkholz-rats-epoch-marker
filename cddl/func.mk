@@ -16,7 +16,14 @@ check-$(1): $(1)-autogen.cddl
 .PHONY: check-$(1)
 
 $(1)-autogen.cddl: $(2)
-	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
+	for f in $$^ ; do \
+		if printf '%s\n' $(CDDLC_FRAGS) | grep -qx "$$$$f" ; then \
+			$(cddlc) -2 -tcddl $$$$f ; \
+		else \
+			grep -v '^;' $$$$f ; \
+		fi ; \
+		echo ; \
+	done > $$@
 
 CLEANFILES += $(1)-autogen.cddl
 

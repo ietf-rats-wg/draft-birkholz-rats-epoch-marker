@@ -539,6 +539,21 @@ Epoch duration should cover worst-case delivery plus clock skew of the Bell, and
 One approach is to accept a global highest-seen epoch (with a bounded replay window) while requiring each Evidence record to bind the Epoch Marker to the Attester identity and, when feasible, a Verifier-provided nonce.
 This limits cross-attester replay of a single Epoch Marker while keeping the Bell stateless, which allows Epoch Markers to be cached and enables their broadcast distribution at scale.
 
+# Privacy Considerations
+
+When issued at predictable intervals or with predictably sequential values, Epoch Markers can act as a system-wide synchronization signal.
+Observers may be able to infer epoch boundaries, correlate messages produced within the same epoch, identify entities using the same Epoch Bell, and learn the cadence of specific operations.
+This linking may be performed even when the conceptual messages are otherwise protected.
+
+System deployments using Epoch Markers where traffic analysis is a concern should make Epoch Marker values and issuance patterns less predictable.
+Epoch Bells can inject bounded jitter into their emission schedules.
+Monothonic-counter-based markers can use variable positive increments rather than unit increments, given that this policy is acceptable across the system.
+As an additional step, the scoping of markers (per trust domain, audience, or protocol context) should be considered.
+
+Usage of randomization for Epoch Marker issuance intervals or counter increments should be coupled with an assessment of acceptance window sizes.
+The maximum jitter used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency should all be considered when determining the minimum practical acceptance window.
+Excessive jitter reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.
+
 # IANA Considerations {#sec-iana-cons}
 
 [^rfced-replace]

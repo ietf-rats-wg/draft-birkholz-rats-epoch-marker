@@ -856,11 +856,11 @@ Internet-Draft                Epoch Markers                    June 2026
    bounded acceptance window) that accounts for reordering of markers.
 
    Usage of variable emission timings or counter increments when
-   emitting Epoch Markers (see Section 7) should be coupled with an
+   emitting Epoch Markers (see Section 7) SHOULD be coupled with an
    assessment of acceptance window sizes.  The maximum timing
    variability used by the Epoch Bell, marker distribution latency,
    expected in-flight reordering, and conceptual message delivery
-   latency should all be considered when determining the minimum
+   latency SHOULD all be considered when determining the minimum
    practical acceptance window.  Excessive timing variability reduces
    the effective lifetime of epochs, and so can cause freshness failures
    for distant participants.

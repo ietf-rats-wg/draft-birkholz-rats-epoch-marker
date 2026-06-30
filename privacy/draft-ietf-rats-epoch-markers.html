@@ -1057,7 +1057,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 31 December 2026</td>
+<td class="center">Expires 1 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg {
 <dd class="internet-draft">draft-ietf-rats-epoch-markers-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-29" class="published">29 June 2026</time>
+<time datetime="2026-06-30" class="published">30 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-31">31 December 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-01">1 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1145,7 +1145,7 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1641,7 +1641,7 @@ Cf. nonce, <span><a href="https://rfc-editor.org/rfc/rfc3161#section-2.4.2" clas
             <dd class="break"></dd>
 <dt id="section-4.1.3-7.5">tsa:</dt>
             <dd style="margin-left: 1.5em" id="section-4.1.3-7.6">
-              <p id="section-4.1.3-7.6.1">a single-entry GeneralNames array <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19#section-11.8" class="relref">Section 11.8</a> of [<a href="#I-D.ietf-cose-cbor-encoded-cert" class="cite xref">I-D.ietf-cose-cbor-encoded-cert</a>]</span> providing a hint in identifying the name of the TSA.
+              <p id="section-4.1.3-7.6.1">a single-entry GeneralNames array <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20#section-11.8" class="relref">Section 11.8</a> of [<a href="#I-D.ietf-cose-cbor-encoded-cert" class="cite xref">I-D.ietf-cose-cbor-encoded-cert</a>]</span> providing a hint in identifying the name of the TSA.
 Cf. tsa, <span><a href="https://rfc-editor.org/rfc/rfc3161#section-2.4.2" class="relref">Section 2.4.2</a> of [<a href="#RFC3161" class="cite xref">RFC3161</a>]</span>.<a href="#section-4.1.3-7.6.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
@@ -1881,8 +1881,11 @@ All receivers <span class="bcp14">MUST</span> be able to accommodate the maximum
 <p id="section-4.4-1">Data structures containing Epoch Markers could be reordered in-flight even without malicious intent, leading to perceived sequencing issues.
 Some Epoch Marker types thus require receiver state to detect replay/rollback or establish sequencing.
 Systems that use Epoch Markers <span class="bcp14">SHOULD</span> define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for reordering of markers.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
-<p id="section-4.4-2">There is a trade-off between keeping a single “global” epoch view versus per-Attester state at the Verifier: global-only policies can exacerbate latency-induced false replay rejections, while per-Attester tracking can be costly.
-Systems that use Epoch Markers <span class="bcp14">SHOULD</span> document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">Usage of variable emission timings or counter increments when emitting Epoch Markers (see <a href="#priv-cons" class="auto internal xref">Section 7</a>) should be coupled with an assessment of acceptance window sizes.
+The maximum timing variability used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency should all be considered when determining the minimum practical acceptance window.
+Excessive timing variability reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-3">There is a trade-off between keeping a single “global” epoch view versus per-Attester state at the Verifier: global-only policies can exacerbate latency-induced false replay rejections, while per-Attester tracking can be costly.
+Systems that use Epoch Markers <span class="bcp14">SHOULD</span> document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1948,21 +1951,18 @@ This limits cross-attester replay of a single Epoch Marker while keeping the Bel
 </div>
 </section>
 </div>
-<div id="privacy-considerations">
+<div id="priv-cons">
 <section id="section-7">
       <h2 id="name-privacy-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-7-1">When issued at predictable intervals or with predictably sequential values, Epoch Markers can act as a system-wide synchronization signal.
+<p id="section-7-1">When issued at predictable time intervals or with predictably sequential values, Epoch Markers can act as system-wide synchronization signals.
 Observers may be able to infer epoch boundaries, correlate messages produced within the same epoch, identify entities using the same Epoch Bell, and learn the cadence of specific operations.
 This linking may be performed even when the conceptual messages are otherwise protected.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">System deployments using Epoch Markers where traffic analysis is a concern should make Epoch Marker values and issuance patterns less predictable.
-Epoch Bells can inject bounded jitter into their emission schedules.
-Monothonic-counter-based markers can use variable positive increments rather than unit increments, given that this policy is acceptable across the system.
+Epoch Bells can make their Epoch Marker emission timing variable.
+When monotonic-counter-based markers are used, the increments between successive marker values can be made variable.
 As an additional step, the scoping of markers (per trust domain, audience, or protocol context) should be considered.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">Usage of randomization for Epoch Marker issuance intervals or counter increments should be coupled with an assessment of acceptance window sizes.
-The maximum jitter used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency should all be considered when determining the minimum practical acceptance window.
-Excessive jitter reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-iana-cons">
@@ -2269,7 +2269,7 @@ For example, <code>em-type=26982</code> identifies an Epoch Tick.<a href="#secti
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-19</span>, <time datetime="2026-05-11" class="refDate">11 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-20</span>, <time datetime="2026-06-30" class="refDate">30 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.core-parameters">[IANA.core-parameters]</dt>
         <dd>
@@ -2548,9 +2548,9 @@ TSTInfo ::= SEQUENCE  {
       </h2>
 <p id="appendix-B-1">The authors would like to thank
 Carl Wallace,
-Jeremy O'Donoghue
-and
-Jun Zhang
+Jeremy O'Donoghue,
+Jun Zhang,
+and Antoine Fressancourt
 for their reviews, suggestions and comments.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>

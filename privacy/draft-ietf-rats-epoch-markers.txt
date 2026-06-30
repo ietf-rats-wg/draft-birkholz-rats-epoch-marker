@@ -5,14 +5,14 @@
 RATS Working Group                                           H. Birkholz
 Internet-Draft                                            Fraunhofer SIT
 Intended status: Standards Track                              T. Fossati
-Expires: 31 December 2026                                         Linaro
+Expires: 1 January 2027                                           Linaro
                                                                   W. Pan
                                                      Huawei Technologies
                                                              I. Mihalcea
                                                                      Arm
                                                               C. Bormann
                                                   Universität Bremen TZI
-                                                            29 June 2026
+                                                            30 June 2026
 
 
                              Epoch Markers
@@ -53,7 +53,7 @@ About This Document
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 1]
+Birkholz, et al.         Expires 1 January 2027                 [Page 1]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -73,7 +73,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 December 2026.
+   This Internet-Draft will expire on 1 January 2027.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 2]
+Birkholz, et al.         Expires 1 January 2027                 [Page 2]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -120,13 +120,13 @@ Internet-Draft                Epoch Markers                    June 2026
      6.1.  Epoch Signalling Issues . . . . . . . . . . . . . . . . .  17
      6.2.  Operational Examples  . . . . . . . . . . . . . . . . . .  17
    7.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  18
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
-     8.1.  New CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  19
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
+     8.1.  New CBOR Tags . . . . . . . . . . . . . . . . . . . . . .  18
      8.2.   New EM CWT Claim . . . . . . . . . . . . . . . . . . . .  19
      8.3.  New Media Type application/epoch-marker+cbor  . . . . . .  20
-     8.4.  New CoAP Content-Formats  . . . . . . . . . . . . . . . .  21
+     8.4.  New CoAP Content-Formats  . . . . . . . . . . . . . . . .  20
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  22
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  21
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  24
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  25
      A.1.  RFC 3161 TSTInfo  . . . . . . . . . . . . . . . . . . . .  27
@@ -165,7 +165,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 3]
+Birkholz, et al.         Expires 1 January 2027                 [Page 3]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -221,7 +221,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 4]
+Birkholz, et al.         Expires 1 January 2027                 [Page 4]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -277,7 +277,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 5]
+Birkholz, et al.         Expires 1 January 2027                 [Page 5]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -333,7 +333,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 6]
+Birkholz, et al.         Expires 1 January 2027                 [Page 6]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -389,7 +389,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 7]
+Birkholz, et al.         Expires 1 January 2027                 [Page 7]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -445,7 +445,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 8]
+Birkholz, et al.         Expires 1 January 2027                 [Page 8]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -501,7 +501,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026                [Page 9]
+Birkholz, et al.         Expires 1 January 2027                 [Page 9]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -557,7 +557,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 10]
+Birkholz, et al.         Expires 1 January 2027                [Page 10]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -613,7 +613,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 11]
+Birkholz, et al.         Expires 1 January 2027                [Page 11]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -669,7 +669,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 12]
+Birkholz, et al.         Expires 1 January 2027                [Page 12]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -725,7 +725,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 13]
+Birkholz, et al.         Expires 1 January 2027                [Page 13]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -781,7 +781,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 14]
+Birkholz, et al.         Expires 1 January 2027                [Page 14]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -837,7 +837,7 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 15]
+Birkholz, et al.         Expires 1 January 2027                [Page 15]
 
 Internet-Draft                Epoch Markers                    June 2026
 
@@ -854,6 +854,16 @@ Internet-Draft                Epoch Markers                    June 2026
    detect replay/rollback or establish sequencing.  Systems that use
    Epoch Markers SHOULD define an explicit acceptance policy (e.g.,
    bounded acceptance window) that accounts for reordering of markers.
+
+   Usage of variable emission timings or counter increments when
+   emitting Epoch Markers (see Section 7) should be coupled with an
+   assessment of acceptance window sizes.  The maximum timing
+   variability used by the Epoch Bell, marker distribution latency,
+   expected in-flight reordering, and conceptual message delivery
+   latency should all be considered when determining the minimum
+   practical acceptance window.  Excessive timing variability reduces
+   the effective lifetime of epochs, and so can cause freshness failures
+   for distant participants.
 
    There is a trade-off between keeping a single “global” epoch view
    versus per-Attester state at the Verifier: global-only policies can
@@ -880,23 +890,17 @@ Internet-Draft                Epoch Markers                    June 2026
    deployments using Epoch Markers generally need to protect Bell
    signing keys (secure storage, rotation, revocation) and scope
    acceptance to the intended trust domain (e.g., expected issuer/trust
-   anchor).  Similarly, the Bell's clock needs to be securely sourced
-   and managed, to prevent attacks that skew the Bell's perception of
-   time.
 
 
 
-
-
-
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 16]
+Birkholz, et al.         Expires 1 January 2027                [Page 16]
 
 Internet-Draft                Epoch Markers                    June 2026
 
+
+   anchor).  Similarly, the Bell's clock needs to be securely sourced
+   and managed, to prevent attacks that skew the Bell's perception of
+   time.
 
 6.1.  Epoch Signalling Issues
 
@@ -938,26 +942,18 @@ Internet-Draft                Epoch Markers                    June 2026
       time window).  This pairing gives per-session uniqueness while
       still allowing Epoch Marker reuse by multiple consumers.
 
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 17]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
    *  _Long-latency paths (e.g., LoRaWAN or DTN profiles)_: High
       propagation and queuing delays make tight epoch windows brittle.
       In system deployments using Epoch Markers, epoch-tick-list can be
       pre-provisioned to Attesters so that each interaction consumes the
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 17]
+
+Internet-Draft                Epoch Markers                    June 2026
+
+
       next tick, with the Verifier keeping per-Attester sequencing state
       (Section 4.4).  Epoch duration should cover worst-case delivery
       plus clock skew of the Bell, and acceptance policies should allow
@@ -977,38 +973,21 @@ Internet-Draft                Epoch Markers                    June 2026
 
 7.  Privacy Considerations
 
-   When issued at predictable intervals or with predictably sequential
-   values, Epoch Markers can act as a system-wide synchronization
-   signal.  Observers may be able to infer epoch boundaries, correlate
-   messages produced within the same epoch, identify entities using the
-   same Epoch Bell, and learn the cadence of specific operations.  This
-   linking may be performed even when the conceptual messages are
-   otherwise protected.
+   When issued at predictable time intervals or with predictably
+   sequential values, Epoch Markers can act as system-wide
+   synchronization signals.  Observers may be able to infer epoch
+   boundaries, correlate messages produced within the same epoch,
+   identify entities using the same Epoch Bell, and learn the cadence of
+   specific operations.  This linking may be performed even when the
+   conceptual messages are otherwise protected.
 
    System deployments using Epoch Markers where traffic analysis is a
    concern should make Epoch Marker values and issuance patterns less
-   predictable.  Epoch Bells can inject bounded jitter into their
-   emission schedules.  Monothonic-counter-based markers can use
-   variable positive increments rather than unit increments, given that
-   this policy is acceptable across the system.  As an additional step,
-   the scoping of markers (per trust domain, audience, or protocol
-   context) should be considered.
-
-   Usage of randomization for Epoch Marker issuance intervals or counter
-   increments should be coupled with an assessment of acceptance window
-   sizes.  The maximum jitter used by the Epoch Bell, marker
-   distribution latency, expected in-flight reordering, and conceptual
-   message delivery latency should all be considered when determining
-   the minimum practical acceptance window.  Excessive jitter reduces
-   the effective lifetime of epochs, and so can cause freshness failures
-   for distant participants.
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 18]
-
-Internet-Draft                Epoch Markers                    June 2026
-
+   predictable.  Epoch Bells can make their Epoch Marker emission timing
+   variable.  When monotonic-counter-based markers are used, the
+   increments between successive marker values can be made variable.  As
+   an additional step, the scoping of markers (per trust domain,
+   audience, or protocol context) should be considered.
 
 8.  IANA Considerations
 
@@ -1021,6 +1000,15 @@ Internet-Draft                Epoch Markers                    June 2026
    IANA is requested to allocate the following tags in the "CBOR Tags"
    registry [IANA.cbor-tags], preferably with the specific CBOR tag
    value requested:
+
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 18]
+
+Internet-Draft                Epoch Markers                    June 2026
+
 
    +=======+========+===================================+===========+
    | Tag   | Data   | Semantics                         | Reference |
@@ -1058,14 +1046,6 @@ Internet-Draft                Epoch Markers                    June 2026
    This specification adds the following value to the "CBOR Web Token
    Claims" registry [IANA.cwt].
 
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 19]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
    *  Claim Name: em
 
    *  Claim Description: Epoch Marker
@@ -1077,6 +1057,14 @@ Internet-Draft                Epoch Markers                    June 2026
    *  Change Controller: IETF
 
    *  Specification Document(s): Section 4 of RFCthis
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 19]
+
+Internet-Draft                Epoch Markers                    June 2026
+
 
 8.3.  New Media Type application/epoch-marker+cbor
 
@@ -1110,24 +1098,29 @@ Internet-Draft                Epoch Markers                    June 2026
    Author/Change controller:  IETF
    Provisional registration:  no
 
-
-
-
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 20]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
 8.4.  New CoAP Content-Formats
 
    IANA is requested to register the following Content-Format IDs in the
    "CoAP Content-Formats" registry, within the "Constrained RESTful
    Environments (CoRE) Parameters" registry group
    [IANA.core-parameters]:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 20]
+
+Internet-Draft                Epoch Markers                    June 2026
+
 
    +============================+=========+=======+===============+
    | Content-Type               | Content | ID    | Reference     |
@@ -1170,14 +1163,6 @@ Internet-Draft                Epoch Markers                    June 2026
 
 9.  References
 
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 21]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
 9.1.  Normative References
 
    [I-D.ietf-cbor-edn-literals]
@@ -1186,13 +1171,20 @@ Internet-Draft                Epoch Markers                    June 2026
               15 June 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-cbor-edn-literals-26>.
 
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 21]
+
+Internet-Draft                Epoch Markers                    June 2026
+
+
    [I-D.ietf-cose-cbor-encoded-cert]
               Mattsson, J. P., Selander, G., Raza, S., Höglund, J.,
               Furuhed, M., and L. Liao, "CBOR Encoded X.509 Certificates
               (C509 Certificates)", Work in Progress, Internet-Draft,
-              draft-ietf-cose-cbor-encoded-cert-19, 11 May 2026,
+              draft-ietf-cose-cbor-encoded-cert-20, 30 June 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              cbor-encoded-cert-19>.
+              cbor-encoded-cert-20>.
 
    [IANA.core-parameters]
               IANA, "Constrained RESTful Environments (CoRE)
@@ -1225,15 +1217,6 @@ Internet-Draft                Epoch Markers                    June 2026
               Protocol (TSP)", RFC 3161, DOI 10.17487/RFC3161, August
               2001, <https://www.rfc-editor.org/rfc/rfc3161>.
 
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 22]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
    [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
               <https://www.rfc-editor.org/rfc/rfc5652>.
@@ -1241,6 +1224,15 @@ Internet-Draft                Epoch Markers                    June 2026
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 22]
+
+Internet-Draft                Epoch Markers                    June 2026
+
 
    [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
               "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
@@ -1279,17 +1271,6 @@ Internet-Draft                Epoch Markers                    June 2026
               <https://www.rfc-editor.org/info/std96>.
               At the time of writing, this STD comprises the following:
 
-
-
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 23]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", STD 96, RFC 9052,
               DOI 10.17487/RFC9052, August 2022,
@@ -1299,6 +1280,15 @@ Internet-Draft                Epoch Markers                    June 2026
               Countersignatures", STD 96, RFC 9338,
               DOI 10.17487/RFC9338, December 2022,
               <https://www.rfc-editor.org/info/rfc9338>.
+
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 23]
+
+Internet-Draft                Epoch Markers                    June 2026
+
 
    [X.690]    International Telecommunications Union, "Information
               technology — ASN.1 encoding rules: Specification of Basic
@@ -1338,14 +1328,6 @@ Internet-Draft                Epoch Markers                    June 2026
               <https://datatracker.ietf.org/doc/html/draft-ietf-rats-
               reference-interaction-models-17>.
 
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 24]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
    [I-D.ietf-scitt-architecture]
               Birkholz, H., Delignat-Lavaud, A., Fournet, C., Deshpande,
               Y., and S. Lasker, "An Architecture for Trustworthy and
@@ -1353,6 +1335,16 @@ Internet-Draft                Epoch Markers                    June 2026
               Internet-Draft, draft-ietf-scitt-architecture-22, 10
               October 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-scitt-architecture-22>.
+
+
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 24]
+
+Internet-Draft                Epoch Markers                    June 2026
+
 
    [IANA.cbor-tags]
               IANA, "Concise Binary Object Representation (CBOR) Tags",
@@ -1394,16 +1386,21 @@ Appendix A.  Examples
 
              Figure 3: CBOR Epoch Marker based on `etime` (EDN)
 
+   The encoded data item in CBOR pretty-printed form (hex with comments)
+   is shown in Figure 4.
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 25]
+
+
+
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 25]
 
 Internet-Draft                Epoch Markers                    June 2026
 
-
-   The encoded data item in CBOR pretty-printed form (hex with comments)
-   is shown in Figure 4.
 
    d9 03e9                                 # tag(1001)
       a3                                   # map(3)
@@ -1450,16 +1447,16 @@ Internet-Draft                Epoch Markers                    June 2026
      Figure 5: CBOR Epoch Marker based on `etime` carried within a CWT
                                    (EDN)
 
+   The encoded data item in CBOR pretty-printed form (hex with comments)
+   is shown in Figure 6.
 
 
 
-Birkholz, et al.        Expires 31 December 2026               [Page 26]
+
+Birkholz, et al.         Expires 1 January 2027                [Page 26]
 
 Internet-Draft                Epoch Markers                    June 2026
 
-
-   The encoded data item in CBOR pretty-printed form (hex with comments)
-   is shown in Figure 6.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1491,29 +1488,6 @@ A.1.  RFC 3161 TSTInfo
    the code block below depicts the original layout of the TSTInfo
    structure from [RFC3161].
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 27]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
    TSTInfo ::= SEQUENCE  {
       version                      INTEGER  { v1(1) },
       policy                       TSAPolicyId,
@@ -1532,10 +1506,19 @@ Internet-Draft                Epoch Markers                    June 2026
       tsa                          [0] GeneralName          OPTIONAL,
       extensions                   [1] IMPLICIT Extensions   OPTIONAL  }
 
+
+
+
+Birkholz, et al.         Expires 1 January 2027                [Page 27]
+
+Internet-Draft                Epoch Markers                    June 2026
+
+
 Acknowledgements
 
-   The authors would like to thank Carl Wallace, Jeremy O'Donoghue and
-   Jun Zhang for their reviews, suggestions and comments.
+   The authors would like to thank Carl Wallace, Jeremy O'Donoghue, Jun
+   Zhang, and Antoine Fressancourt for their reviews, suggestions and
+   comments.
 
 Authors' Addresses
 
@@ -1564,12 +1547,6 @@ Authors' Addresses
    Email: ionut.mihalcea@arm.com
 
 
-
-Birkholz, et al.        Expires 31 December 2026               [Page 28]
-
-Internet-Draft                Epoch Markers                    June 2026
-
-
    Carsten Bormann
    Universität Bremen TZI
    Bibliothekstr. 1
@@ -1588,37 +1565,4 @@ Internet-Draft                Epoch Markers                    June 2026
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Birkholz, et al.        Expires 31 December 2026               [Page 29]
+Birkholz, et al.         Expires 1 January 2027                [Page 28]

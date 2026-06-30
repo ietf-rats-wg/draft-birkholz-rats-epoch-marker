@@ -541,18 +541,18 @@ This limits cross-attester replay of a single Epoch Marker while keeping the Bel
 
 # Privacy Considerations
 
-When issued at predictable intervals or with predictably sequential values, Epoch Markers can act as a system-wide synchronization signal.
+When issued at predictable time intervals or with predictably sequential values, Epoch Markers can act as system-wide synchronization signals.
 Observers may be able to infer epoch boundaries, correlate messages produced within the same epoch, identify entities using the same Epoch Bell, and learn the cadence of specific operations.
 This linking may be performed even when the conceptual messages are otherwise protected.
 
 System deployments using Epoch Markers where traffic analysis is a concern should make Epoch Marker values and issuance patterns less predictable.
-Epoch Bells can inject bounded jitter into their emission schedules.
-Monothonic-counter-based markers can use variable positive increments rather than unit increments, given that this policy is acceptable across the system.
+Epoch Bells can make their Epoch Marker emission timing variable.
+When monotonic-counter-based markers are used, the increments between successive marker values can be made variable.
 As an additional step, the scoping of markers (per trust domain, audience, or protocol context) should be considered.
 
-Usage of randomization for Epoch Marker issuance intervals or counter increments should be coupled with an assessment of acceptance window sizes.
-The maximum jitter used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency should all be considered when determining the minimum practical acceptance window.
-Excessive jitter reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.
+Usage of variable emission timings or counter increments should be coupled with an assessment of acceptance window sizes.
+The maximum timing variability used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency should all be considered when determining the minimum practical acceptance window.
+Excessive timing variability reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.
 
 # IANA Considerations {#sec-iana-cons}
 
@@ -723,7 +723,7 @@ TSTInfo ::= SEQUENCE  {
 
 The authors would like to thank
 Carl Wallace,
-Jeremy O'Donoghue
-and
-Jun Zhang
+Jeremy O'Donoghue,
+Jun Zhang,
+and Antoine Fressancourt
 for their reviews, suggestions and comments.

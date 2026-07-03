@@ -495,6 +495,10 @@ Data structures containing Epoch Markers could be reordered in-flight even witho
 Some Epoch Marker types thus require receiver state to detect replay/rollback or establish sequencing.
 Systems that use Epoch Markers SHOULD define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for reordering of markers.
 
+Usage of variable emission timings or counter increments when emitting Epoch Markers (see {{priv-cons}}) SHOULD be coupled with an assessment of acceptance window sizes.
+The maximum timing variability used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency SHOULD all be considered when determining the minimum practical acceptance window.
+Excessive timing variability reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.
+
 There is a trade-off between keeping a single “global” epoch view versus per-Attester state at the Verifier: global-only policies can exacerbate latency-induced false replay rejections, while per-Attester tracking can be costly.
 Systems that use Epoch Markers SHOULD document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.
 
@@ -538,6 +542,17 @@ Epoch duration should cover worst-case delivery plus clock skew of the Bell, and
 * *Large fleets sharing a Bell*: When many Attesters reuse the same Epoch Marker, per-Attester state at the Verifier may be impractical.
 One approach is to accept a global highest-seen epoch (with a bounded replay window) while requiring each Evidence record to bind the Epoch Marker to the Attester identity and, when feasible, a Verifier-provided nonce.
 This limits cross-attester replay of a single Epoch Marker while keeping the Bell stateless, which allows Epoch Markers to be cached and enables their broadcast distribution at scale.
+
+# Privacy Considerations {#priv-cons}
+
+When issued at predictable time intervals or with predictably sequential values, Epoch Markers can act as system-wide synchronization signals.
+Observers may be able to infer epoch boundaries, correlate messages produced within the same epoch, identify entities using the same Epoch Bell, and learn the cadence of specific operations.
+This linking may be performed even when the conceptual messages are otherwise protected.
+
+System deployments using Epoch Markers where traffic analysis is a concern should make Epoch Marker values and issuance patterns less predictable.
+Epoch Bells can make their Epoch Marker emission timing variable.
+When monotonic-counter-based markers are used, the increments between successive marker values can be made variable.
+As an additional step, the scoping of markers (per trust domain, audience, or protocol context) should be considered.
 
 # IANA Considerations {#sec-iana-cons}
 
@@ -708,7 +723,7 @@ TSTInfo ::= SEQUENCE  {
 
 The authors would like to thank
 Carl Wallace,
-Jeremy O'Donoghue
-and
-Jun Zhang
+Jeremy O'Donoghue,
+Jun Zhang,
+and Antoine Fressancourt
 for their reviews, suggestions and comments.

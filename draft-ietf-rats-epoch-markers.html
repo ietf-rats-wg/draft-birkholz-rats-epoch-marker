@@ -18,22 +18,23 @@ Instead, the reception of a specific Epoch Marker establishes a new epoch that i
 This document defines Epoch Marker types, including CBOR time tags, RFC 3161 TimeStampToken, and nonce-like structures.
 It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, which serve as vehicles for signed protocol messages. 
     ' name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-rats-epoch-markers-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.7.0
+    wcwidth 0.8.2
 -->
 <link href="draft-ietf-rats-epoch-markers.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -300,16 +301,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -329,10 +333,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -343,59 +347,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -433,26 +437,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -468,20 +471,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -517,9 +522,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -529,17 +534,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -589,25 +596,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -627,13 +626,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -644,18 +636,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -714,9 +704,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -806,23 +796,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -833,19 +827,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -866,54 +862,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -932,26 +928,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -967,12 +963,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1034,17 +1031,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1054,11 +1053,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Epoch Markers</td>
-<td class="right">May 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birkholz, et al.</td>
-<td class="center">Expires 19 November 2026</td>
+<td class="center">Expires 4 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-rats-epoch-markers-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-18" class="published">18 May 2026</time>
+<time datetime="2026-07-03" class="published">3 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-11-19">19 November 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-04">4 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1146,7 +1145,7 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 November 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1244,46 +1243,49 @@ It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, 
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-new-cbor-tags" class="internal xref">New CBOR Tags</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-new-em-cwt-claim" class="internal xref">New EM CWT Claim</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-new-media-type-application-" class="internal xref">New Media Type <code>application/epoch-marker+cbor</code></a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
-                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-new-coap-content-formats" class="internal xref">New CoAP Content-Formats</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-new-cbor-tags" class="internal xref">New CBOR Tags</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-new-em-cwt-claim" class="internal xref">New EM CWT Claim</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-new-media-type-application-" class="internal xref">New Media Type <code>application/epoch-marker+cbor</code></a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-new-coap-content-formats" class="internal xref">New CoAP Content-Formats</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-rfc-3161-tstinfo" class="internal xref">RFC 3161 TSTInfo</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-rfc-3161-tstinfo" class="internal xref">RFC 3161 TSTInfo</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1409,7 +1411,7 @@ For Passport, any Attestation Result derived from such Evidence <span class="bcp
 <p id="section-4-1">This section specifies the structure of Epoch Marker types using CDDL <span>[<a href="#RFC8610" class="cite xref">RFC8610</a>]</span> and illustrates their usage and relationship with other IETF work (e.g, <span>[<a href="#RFC3161" class="cite xref">RFC3161</a>]</span>) where applicable.
 In general, Epoch Markers are intended to be conveyed securely, e.g., by being included in a signed data structure, such as a CBOR Web Token (CWT), or by being sent via a secure channel.
 The specification of such "outer" structures and protocols and the means how to secure them is beyond the scope of this document.
-This document defines the different types of Epoch Markers in <a href="#sec-iana-cbor-tags" class="auto internal xref">Section 7.1</a>.
+This document defines the different types of Epoch Markers in <a href="#sec-iana-cbor-tags" class="auto internal xref">Section 8.1</a>.
 When the media type <code>application/epoch-marker+cbor</code> is used to label content as an Epoch Marker, the <code>em-type</code> media type parameter can optionally specify the Epoch Marker type by referencing its CBOR tag number.
 For example, an Epoch Marker can be used to construct a CBOR-based trusted time stamp token, similar in function to a <span>[<a href="#RFC3161" class="cite xref">RFC3161</a>]</span> TimeStampToken, using CWT and the <code>em</code> Claim defined in this document (see <a href="#fig-ex-2" class="auto internal xref">Figure 5</a> for an illustration).
 The value(s) that an Epoch Marker represents are intended to demonstrate freshness of messages and protocols, but they can also serve other purposes in cases where trusted timestamps or time intervals are required.
@@ -1639,7 +1641,7 @@ Cf. nonce, <span><a href="https://rfc-editor.org/rfc/rfc3161#section-2.4.2" clas
             <dd class="break"></dd>
 <dt id="section-4.1.3-7.5">tsa:</dt>
             <dd style="margin-left: 1.5em" id="section-4.1.3-7.6">
-              <p id="section-4.1.3-7.6.1">a single-entry GeneralNames array <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19#section-11.8" class="relref">Section 11.8</a> of [<a href="#I-D.ietf-cose-cbor-encoded-cert" class="cite xref">I-D.ietf-cose-cbor-encoded-cert</a>]</span> providing a hint in identifying the name of the TSA.
+              <p id="section-4.1.3-7.6.1">a single-entry GeneralNames array <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20#section-11.8" class="relref">Section 11.8</a> of [<a href="#I-D.ietf-cose-cbor-encoded-cert" class="cite xref">I-D.ietf-cose-cbor-encoded-cert</a>]</span> providing a hint in identifying the name of the TSA.
 Cf. tsa, <span><a href="https://rfc-editor.org/rfc/rfc3161#section-2.4.2" class="relref">Section 2.4.2</a> of [<a href="#RFC3161" class="cite xref">RFC3161</a>]</span>.<a href="#section-4.1.3-7.6.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
@@ -1879,8 +1881,11 @@ All receivers <span class="bcp14">MUST</span> be able to accommodate the maximum
 <p id="section-4.4-1">Data structures containing Epoch Markers could be reordered in-flight even without malicious intent, leading to perceived sequencing issues.
 Some Epoch Marker types thus require receiver state to detect replay/rollback or establish sequencing.
 Systems that use Epoch Markers <span class="bcp14">SHOULD</span> define an explicit acceptance policy (e.g., bounded acceptance window) that accounts for reordering of markers.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
-<p id="section-4.4-2">There is a trade-off between keeping a single “global” epoch view versus per-Attester state at the Verifier: global-only policies can exacerbate latency-induced false replay rejections, while per-Attester tracking can be costly.
-Systems that use Epoch Markers <span class="bcp14">SHOULD</span> document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">Usage of variable emission timings or counter increments when emitting Epoch Markers (see <a href="#priv-cons" class="auto internal xref">Section 7</a>) <span class="bcp14">SHOULD</span> be coupled with an assessment of acceptance window sizes.
+The maximum timing variability used by the Epoch Bell, marker distribution latency, expected in-flight reordering, and conceptual message delivery latency <span class="bcp14">SHOULD</span> all be considered when determining the minimum practical acceptance window.
+Excessive timing variability reduces the effective lifetime of epochs, and so can cause freshness failures for distant participants.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-3">There is a trade-off between keeping a single “global” epoch view versus per-Attester state at the Verifier: global-only policies can exacerbate latency-induced false replay rejections, while per-Attester tracking can be costly.
+Systems that use Epoch Markers <span class="bcp14">SHOULD</span> document whether they use global epoch tracking or per-Attester state and, if necessary, the associated window.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1946,20 +1951,34 @@ This limits cross-attester replay of a single Epoch Marker while keeping the Bel
 </div>
 </section>
 </div>
-<div id="sec-iana-cons">
+<div id="priv-cons">
 <section id="section-7">
-      <h2 id="name-iana-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      <h2 id="name-privacy-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-7-1"><span class="cref" id="rfced-replace">RFC Editor: please replace RFCthis with the RFC
-number of this RFC and remove this note.</span><a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">When issued at predictable time intervals or with predictably sequential values, Epoch Markers can act as system-wide synchronization signals.
+Observers may be able to infer epoch boundaries, correlate messages produced within the same epoch, identify entities using the same Epoch Bell, and learn the cadence of specific operations.
+This linking may be performed even when the conceptual messages are otherwise protected.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">System deployments using Epoch Markers where traffic analysis is a concern should make Epoch Marker values and issuance patterns less predictable.
+Epoch Bells can make their Epoch Marker emission timing variable.
+When monotonic-counter-based markers are used, the increments between successive marker values can be made variable.
+As an additional step, the scoping of markers (per trust domain, audience, or protocol context) should be considered.<a href="#section-7-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-iana-cons">
+<section id="section-8">
+      <h2 id="name-iana-considerations">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-8-1"><span class="cref" id="rfced-replace">RFC Editor: please replace RFCthis with the RFC
+number of this RFC and remove this note.</span><a href="#section-8-1" class="pilcrow">¶</a></p>
 <div id="sec-iana-cbor-tags">
-<section id="section-7.1">
+<section id="section-8.1">
         <h3 id="name-new-cbor-tags">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-new-cbor-tags" class="section-name selfRef">New CBOR Tags</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-new-cbor-tags" class="section-name selfRef">New CBOR Tags</a>
         </h3>
-<p id="section-7.1-1">IANA is requested to allocate the following tags in the "CBOR Tags" registry
-<span>[<a href="#IANA.cbor-tags" class="cite xref">IANA.cbor-tags</a>]</span>, preferably with the specific CBOR tag value requested:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-1">IANA is requested to allocate the following tags in the "CBOR Tags" registry
+<span>[<a href="#IANA.cbor-tags" class="cite xref">IANA.cbor-tags</a>]</span>, preferably with the specific CBOR tag value requested:<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <span id="name-new-cbor-tags-2"></span><div id="tbl-cbor-tags">
 <table class="left" id="table-1">
           <caption>
@@ -2023,126 +2042,126 @@ number of this RFC and remove this note.</span><a href="#section-7-1" class="pil
 </section>
 </div>
 <div id="sec-iana-em-claim">
-<section id="section-7.2">
+<section id="section-8.2">
         <h3 id="name-new-em-cwt-claim">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-new-em-cwt-claim" class="section-name selfRef">New EM CWT Claim</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-new-em-cwt-claim" class="section-name selfRef">New EM CWT Claim</a>
         </h3>
-<p id="section-7.2-1">This specification adds the following value to the "CBOR Web Token Claims" registry <span>[<a href="#IANA.cwt" class="cite xref">IANA.cwt</a>]</span>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">This specification adds the following value to the "CBOR Web Token Claims" registry <span>[<a href="#IANA.cwt" class="cite xref">IANA.cwt</a>]</span>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.2-2.1">
-            <p id="section-7.2-2.1.1">Claim Name: em<a href="#section-7.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-8.2-2.1">
+            <p id="section-8.2-2.1.1">Claim Name: em<a href="#section-8.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.2-2.2">
-            <p id="section-7.2-2.2.1">Claim Description: Epoch Marker<a href="#section-7.2-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-2.2">
+            <p id="section-8.2-2.2.1">Claim Description: Epoch Marker<a href="#section-8.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.2-2.3">
-            <p id="section-7.2-2.3.1">Claim Key: 2000 (IANA: suggested assignment)<a href="#section-7.2-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-2.3">
+            <p id="section-8.2-2.3.1">Claim Key: 2000 (IANA: suggested assignment)<a href="#section-8.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.2-2.4">
-            <p id="section-7.2-2.4.1">Claim Value Type(s): CBOR array<a href="#section-7.2-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-2.4">
+            <p id="section-8.2-2.4.1">Claim Value Type(s): CBOR array<a href="#section-8.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.2-2.5">
-            <p id="section-7.2-2.5.1">Change Controller: IETF<a href="#section-7.2-2.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-2.5">
+            <p id="section-8.2-2.5.1">Change Controller: IETF<a href="#section-8.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-7.2-2.6">
-            <p id="section-7.2-2.6.1">Specification Document(s): <a href="#sec-epoch-markers" class="auto internal xref">Section 4</a> of RFCthis<a href="#section-7.2-2.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-8.2-2.6">
+            <p id="section-8.2-2.6.1">Specification Document(s): <a href="#sec-epoch-markers" class="auto internal xref">Section 4</a> of RFCthis<a href="#section-8.2-2.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="new-media-type-applicationepoch-markercbor">
-<section id="section-7.3">
+<section id="section-8.3">
         <h3 id="name-new-media-type-application-">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-new-media-type-application-" class="section-name selfRef">New Media Type <code>application/epoch-marker+cbor</code></a>
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-new-media-type-application-" class="section-name selfRef">New Media Type <code>application/epoch-marker+cbor</code></a>
         </h3>
-<p id="section-7.3-1">IANA is requested to add the <code>application/epoch-marker+cbor</code> media types to the "Media Types" registry <span>[<a href="#IANA.media-types" class="cite xref">IANA.media-types</a>]</span>, using the following template:<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlCompact dlParallel" id="section-7.3-2">
-          <dt id="section-7.3-2.1">Type name:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.2">
-            <p id="section-7.3-2.2.1">application<a href="#section-7.3-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-8.3-1">IANA is requested to add the <code>application/epoch-marker+cbor</code> media types to the "Media Types" registry <span>[<a href="#IANA.media-types" class="cite xref">IANA.media-types</a>]</span>, using the following template:<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlCompact dlParallel" id="section-8.3-2">
+          <dt id="section-8.3-2.1">Type name:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.2">
+            <p id="section-8.3-2.2.1">application<a href="#section-8.3-2.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.3">Subtype name:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.4">
-            <p id="section-7.3-2.4.1">epoch-marker+cbor<a href="#section-7.3-2.4.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.3">Subtype name:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.4">
+            <p id="section-8.3-2.4.1">epoch-marker+cbor<a href="#section-8.3-2.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.5">Required parameters:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.6">
-            <p id="section-7.3-2.6.1">no<a href="#section-7.3-2.6.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.5">Required parameters:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.6">
+            <p id="section-8.3-2.6.1">no<a href="#section-8.3-2.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.7">Optional parameters:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.8">
-            <p id="section-7.3-2.8.1"><code>em-type</code>: the CBOR tag number that identifies the specific Epoch Marker.
+<dt id="section-8.3-2.7">Optional parameters:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.8">
+            <p id="section-8.3-2.8.1"><code>em-type</code>: the CBOR tag number that identifies the specific Epoch Marker.
 This value is encoded as an unsigned decimal integer, without leading zeroes, except for the actual number 0.
-For example, <code>em-type=26982</code> identifies an Epoch Tick.<a href="#section-7.3-2.8.1" class="pilcrow">¶</a></p>
+For example, <code>em-type=26982</code> identifies an Epoch Tick.<a href="#section-8.3-2.8.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.9">Encoding considerations:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.10">
-            <p id="section-7.3-2.10.1">binary (CBOR)<a href="#section-7.3-2.10.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.9">Encoding considerations:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.10">
+            <p id="section-8.3-2.10.1">binary (CBOR)<a href="#section-8.3-2.10.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.11">Security considerations:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.12">
-            <p id="section-7.3-2.12.1"><a href="#sec-seccons" class="auto internal xref">Section 6</a> of RFCthis<a href="#section-7.3-2.12.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.11">Security considerations:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.12">
+            <p id="section-8.3-2.12.1"><a href="#sec-seccons" class="auto internal xref">Section 6</a> of RFCthis<a href="#section-8.3-2.12.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.13">Interoperability considerations:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.14">
-            <p id="section-7.3-2.14.1">n/a<a href="#section-7.3-2.14.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.13">Interoperability considerations:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.14">
+            <p id="section-8.3-2.14.1">n/a<a href="#section-8.3-2.14.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.15">Published specification:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.16">
-            <p id="section-7.3-2.16.1">RFCthis<a href="#section-7.3-2.16.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.15">Published specification:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.16">
+            <p id="section-8.3-2.16.1">RFCthis<a href="#section-8.3-2.16.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.17">Applications that use this media type:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.18">
-            <p id="section-7.3-2.18.1">RATS Attesters, Verifiers, Endorsers and Reference-Value providers, and Relying Parties that need to transfer Epoch Markers payloads over HTTP(S), CoAP(S), and other transports.<a href="#section-7.3-2.18.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.17">Applications that use this media type:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.18">
+            <p id="section-8.3-2.18.1">RATS Attesters, Verifiers, Endorsers and Reference-Value providers, and Relying Parties that need to transfer Epoch Markers payloads over HTTP(S), CoAP(S), and other transports.<a href="#section-8.3-2.18.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.19">Fragment identifier considerations:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.20">
-            <p id="section-7.3-2.20.1">The syntax and semantics of fragment identifiers are as specified for "application/cbor". (No fragment identification syntax is currently defined for "application/cbor".)<a href="#section-7.3-2.20.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.19">Fragment identifier considerations:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.20">
+            <p id="section-8.3-2.20.1">The syntax and semantics of fragment identifiers are as specified for "application/cbor". (No fragment identification syntax is currently defined for "application/cbor".)<a href="#section-8.3-2.20.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.21">Person &amp; email address to contact for further information:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.22">
-            <p id="section-7.3-2.22.1">RATS WG mailing list (rats@ietf.org)<a href="#section-7.3-2.22.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.21">Person &amp; email address to contact for further information:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.22">
+            <p id="section-8.3-2.22.1">RATS WG mailing list (rats@ietf.org)<a href="#section-8.3-2.22.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.23">Intended usage:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.24">
-            <p id="section-7.3-2.24.1">COMMON<a href="#section-7.3-2.24.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.23">Intended usage:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.24">
+            <p id="section-8.3-2.24.1">COMMON<a href="#section-8.3-2.24.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.25">Restrictions on usage:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.26">
-            <p id="section-7.3-2.26.1">none<a href="#section-7.3-2.26.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.25">Restrictions on usage:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.26">
+            <p id="section-8.3-2.26.1">none<a href="#section-8.3-2.26.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.27">Author/Change controller:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.28">
-            <p id="section-7.3-2.28.1">IETF<a href="#section-7.3-2.28.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.27">Author/Change controller:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.28">
+            <p id="section-8.3-2.28.1">IETF<a href="#section-8.3-2.28.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-7.3-2.29">Provisional registration:</dt>
-          <dd style="margin-left: 1.5em" id="section-7.3-2.30">
-            <p id="section-7.3-2.30.1">no<a href="#section-7.3-2.30.1" class="pilcrow">¶</a></p>
+<dt id="section-8.3-2.29">Provisional registration:</dt>
+          <dd style="margin-left: 1.5em" id="section-8.3-2.30">
+            <p id="section-8.3-2.30.1">no<a href="#section-8.3-2.30.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="new-coap-content-formats">
-<section id="section-7.4">
+<section id="section-8.4">
         <h3 id="name-new-coap-content-formats">
-<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-new-coap-content-formats" class="section-name selfRef">New CoAP Content-Formats</a>
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-new-coap-content-formats" class="section-name selfRef">New CoAP Content-Formats</a>
         </h3>
-<p id="section-7.4-1">IANA is requested to register the following Content-Format IDs in the "CoAP Content-Formats" registry, within the "Constrained RESTful Environments (CoRE) Parameters" registry group <span>[<a href="#IANA.core-parameters" class="cite xref">IANA.core-parameters</a>]</span>:<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-1">IANA is requested to register the following Content-Format IDs in the "CoAP Content-Formats" registry, within the "Constrained RESTful Environments (CoRE) Parameters" registry group <span>[<a href="#IANA.core-parameters" class="cite xref">IANA.core-parameters</a>]</span>:<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 <span id="name-new-coap-content-formats-2"></span><table class="left" id="table-2">
           <caption>
 <a href="#table-2" class="selfRef">Table 2</a>:
@@ -2228,29 +2247,29 @@ For example, <code>em-type=26982</code> identifies an Epoch Tick.<a href="#secti
             </tr>
           </tbody>
         </table>
-<p id="section-7.4-3">If possible, TBD1..TBD10 should be assigned in the 256..9999 range.<a href="#section-7.4-3" class="pilcrow">¶</a></p>
+<p id="section-8.4-3">If possible, TBD1..TBD10 should be assigned in the 256..9999 range.<a href="#section-8.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-references">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-8.1">
+<section id="section-9.1">
         <h3 id="name-normative-references">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="I-D.ietf-cbor-edn-literals">[I-D.ietf-cbor-edn-literals]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Concise Diagnostic Notation (CDN)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-edn-literals-25</span>, <time datetime="2026-05-18" class="refDate">18 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-25">https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-25</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Concise Diagnostic Notation (CDN)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-edn-literals-26</span>, <time datetime="2026-06-15" class="refDate">15 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-26">https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-26</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-cbor-encoded-cert">[I-D.ietf-cose-cbor-encoded-cert]</dt>
         <dd>
-<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-19</span>, <time datetime="2026-05-11" class="refDate">11 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-19</a>&gt;</span>. </dd>
+<span class="refAuthor">Mattsson, J. P.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Raza, S.</span>, <span class="refAuthor">Höglund, J.</span>, <span class="refAuthor">Furuhed, M.</span>, and <span class="refAuthor">L. Liao</span>, <span class="refTitle">"CBOR Encoded X.509 Certificates (C509 Certificates)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-cbor-encoded-cert-20</span>, <time datetime="2026-06-30" class="refDate">30 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20">https://datatracker.ietf.org/doc/html/draft-ietf-cose-cbor-encoded-cert-20</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA.core-parameters">[IANA.core-parameters]</dt>
         <dd>
@@ -2330,14 +2349,14 @@ For example, <code>em-type=26982</code> identifies an Epoch Tick.<a href="#secti
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-8.2">
+<section id="section-9.2">
         <h3 id="name-informative-references">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="I-D.ietf-lamps-csr-attestation">[I-D.ietf-lamps-csr-attestation]</dt>
         <dd>
-<span class="refAuthor">Ounsworth, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Wiseman, M.</span>, and <span class="refAuthor">N. Smith</span>, <span class="refTitle">"Use of Remote Attestation with Certification Signing Requests"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-csr-attestation-25</span>, <time datetime="2026-05-05" class="refDate">5 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-25">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-25</a>&gt;</span>. </dd>
+<span class="refAuthor">Ounsworth, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Wiseman, M.</span>, and <span class="refAuthor">N. Smith</span>, <span class="refTitle">"Use of Remote Attestation with Certification Signing Requests"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-csr-attestation-28</span>, <time datetime="2026-06-16" class="refDate">16 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-28">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-28</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-rats-ar4si">[I-D.ietf-rats-ar4si]</dt>
         <dd>
@@ -2529,9 +2548,9 @@ TSTInfo ::= SEQUENCE  {
       </h2>
 <p id="appendix-B-1">The authors would like to thank
 Carl Wallace,
-Jeremy O'Donoghue
-and
-Jun Zhang
+Jeremy O'Donoghue,
+Jun Zhang,
+and Antoine Fressancourt
 for their reviews, suggestions and comments.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>

@@ -881,7 +881,7 @@ Internet-Draft                Epoch Markers                  August 2026
 
 6.  Epoch Bell Certification
 
-   Relying parties that receive Epoch Markers directly or as part of
+   Relying Parties that receive Epoch Markers directly or as part of
    other RATS conceptual messages need a way to determine whether the
    signing key that produced an Epoch Marker was authorized to do so.
    This section defines a mechanism for conveying that authorization

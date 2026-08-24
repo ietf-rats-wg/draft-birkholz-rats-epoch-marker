@@ -1910,7 +1910,7 @@ Conversely, applying the first signature to an Epoch Marker always makes the iss
       <h2 id="name-epoch-bell-certification">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-epoch-bell-certification" class="section-name selfRef">Epoch Bell Certification</a>
       </h2>
-<p id="section-6-1">Relying parties that receive Epoch Markers directly or as part of other RATS conceptual messages need a way to determine whether the signing key that produced an Epoch Marker was authorized to do so.
+<p id="section-6-1">Relying Parties that receive Epoch Markers directly or as part of other RATS conceptual messages need a way to determine whether the signing key that produced an Epoch Marker was authorized to do so.
 This section defines a mechanism for conveying that authorization when the Epoch Bell is certified using an X.509 public-key certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
 Authorization of Epoch Bells that are not certified using X.509 (e.g., ecosystems that convey authorization semantics via CBOR-native structures) is out of scope of this document.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">An X.509 certificate for an Epoch Bell signing key <span class="bcp14">MUST</span> assert this specific purpose using the <code>id-kp-epochBell</code> extended key purpose identifier, defined below, in the certificate's Extended Key Usage (EKU) extension <span><a href="https://rfc-editor.org/rfc/rfc5280#section-4.2.1.12" class="relref">Section 4.2.1.12</a> of [<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>

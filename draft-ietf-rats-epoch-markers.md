@@ -500,7 +500,7 @@ Conversely, applying the first signature to an Epoch Marker always makes the iss
 
 # Epoch Bell Certification {#sec-epoch-bell-cert}
 
-Relying parties that receive Epoch Markers directly or as part of other RATS conceptual messages need a way to determine whether the signing key that produced an Epoch Marker was authorized to do so.
+Relying Parties that receive Epoch Markers directly or as part of other RATS conceptual messages need a way to determine whether the signing key that produced an Epoch Marker was authorized to do so.
 This section defines a mechanism for conveying that authorization when the Epoch Bell is certified using an X.509 public-key certificate {{-PKIX}}.
 Authorization of Epoch Bells that are not certified using X.509 (e.g., ecosystems that convey authorization semantics via CBOR-native structures) is out of scope of this document.
 

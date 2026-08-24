@@ -1298,10 +1298,9 @@ Internet-Draft                Epoch Markers                  August 2026
 
           Table 3: New PKIX Extended Key Purpose
 
-   IANA is requested to assign an object identifier (OID) for the ASN.1
-   Module defined in Section 6 in the "SMI Security for PKIX Module
-   Identifier" registry of the "SMI Numbers" [IANA.smi-numbers] registry
-   group:
+   IANA is requested to assign a new value for the ASN.1 Module defined
+   in Section 6 in the "SMI Security for PKIX Module Identifier"
+   registry of the "SMI Numbers" [IANA.smi-numbers] registry group:
 
    +=========+===================+======================+
    | Decimal | Description       | References           |
@@ -1337,6 +1336,7 @@ Internet-Draft                Epoch Markers                  August 2026
    [IANA.media-types]
               IANA, "Media Types",
               <https://www.iana.org/assignments/media-types>.
+
 
 
 

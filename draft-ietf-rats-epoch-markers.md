@@ -271,7 +271,7 @@ This is the sha-256 hash of the string "EPOCH_BELL".
 
 The TimeStampToken obtained from the TSA MUST be stripped of the TSA signature.
 Only the TSTInfo is to be kept the rest MUST be discarded.
-The TSTInfo MAY be conveyed in an Epoch Bell-signed Epoch Marker, whose COSE signature supplies the protection formerly supplied by the discarded TSA envelope.
+The TSTInfo is conveyed in an Epoch Bell-signed Epoch Marker, whose COSE signature supplies the protection formerly supplied by the discarded TSA envelope.
 
 ### CBOR-encoded RFC3161 TST Info {#sec-rfc3161-fancy}
 

@@ -192,7 +192,7 @@ The specification of such "outer" structures and protocols and the means how to 
 This document defines the different types of Epoch Markers in {{sec-iana-cbor-tags}}.
 When the media type `application/epoch-marker+cbor` is used to label content as an Epoch Marker, the `em-type` media type parameter can optionally specify the Epoch Marker type by referencing its CBOR tag number.
 For example, an Epoch Marker can be used to construct a CBOR-based trusted time stamp token, similar in function to a {{-TSA}} TimeStampToken, using CWT and the `em` Claim defined in this document (see {{fig-ex-2}} for an illustration).
-The value(s) that an Epoch Marker represents are intended to demonstrate freshness of messages and protocols. 
+The value(s) that an Epoch Marker represents are intended to demonstrate freshness of messages and protocols.
 Epoch Bell-signed Epoch Markers can also serve other purposes in cases where trusted timestamps or time intervals are required.
 Taken as an opaque value, it is possible to use Epoch Markers as values for a nonce field in existing data structures or protocols that already support extra data fields, such as `extraData` in TPMS_ATTEST {{TCG-TPM2}}.
 Similarities in the usage of nonces and Epoch Markers can sometimes lead to applications where both are used in the same interaction, albeit in different places and for different purposes.

@@ -1290,17 +1290,16 @@ Birkholz, et al.          Expires 11 March 2027                [Page 23]
 Internet-Draft                Epoch Markers               September 2026
 
 
-   +=================+=========================+==============+
-   | Indicator Value | Conceptual Message Name | Reference    |
-   +=================+=========================+==============+
-   | TBD13           | Epoch ID                | Section 10.3 |
-   |                 |                         | of [RFC9334] |
-   +-----------------+-------------------------+--------------+
-   | TBD14           | Nonce                   | Section 10.2 |
-   |                 |                         | of [RFC9334] |
-   +-----------------+-------------------------+--------------+
+   +=================+=========================+======================+
+   | Indicator Value | Conceptual Message Name | Reference            |
+   +=================+=========================+======================+
+   | TBD13           | Epoch ID                | Section 2 of RFCthis |
+   +-----------------+-------------------------+----------------------+
+   | TBD14           | Nonce                   | Section 10.2 of      |
+   |                 |                         | [RFC9334]            |
+   +-----------------+-------------------------+----------------------+
 
-                   Table 3: New CMW Indicators
+                       Table 3: New CMW Indicators
 
 9.6.  New SMI Numbers Registrations
 
@@ -1338,6 +1337,7 @@ Internet-Draft                Epoch Markers               September 2026
               Progress, Internet-Draft, draft-ietf-cbor-edn-literals-27,
               20 July 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-cbor-edn-literals-27>.
+
 
 
 

@@ -27,8 +27,8 @@ author:
   city: Darmstadt
   country: Germany
 - name: Thomas Fossati
-  organization: Linaro
-  email: Thomas.Fossati@linaro.org
+  organization: NVIDIA
+  email: tfossati@nvidia.com
   country: Switzerland
 - name: Wei Pan
   org: Huawei Technologies
@@ -71,6 +71,7 @@ informative:
   I-D.ietf-scitt-architecture: scitt-receipts
   I-D.ietf-rats-eat: rats-eat
   I-D.ietf-lamps-csr-attestation: csr-attestation
+  RFC9999: rats-cmw
   TCG-CoEvidence:
     author:
       org: Trusted Computing Group
@@ -100,6 +101,7 @@ Systems receiving Epoch Markers do not need to track freshness using their own u
 Instead, the reception of a specific Epoch Marker establishes a new epoch that is shared among all recipients.
 This document defines Epoch Marker types, including CBOR time tags, RFC 3161 TimeStampToken, and nonce-like structures.
 It also defines a CWT Claim to embed Epoch Markers in RFC 8392 CBOR Web Tokens, which serve as vehicles for signed protocol messages.
+Finally, it registers RATS Conceptual Message Wrapper (CMW) Indicators for Epoch ID and Nonce.
 
 --- middle
 
@@ -136,6 +138,8 @@ However, CWTs are not the only containers in which Epoch Markers can be embedded
 Epoch Markers can be included in any type of message that allows for the embedding of opaque bytes or CBOR data items.
 Examples include the Collection CMW in {{-csr-attestation}}, Evidence formats such as {{TCG-CoEvidence}} or {{-rats-eat}}, Attestation Results formats such as {{-rats-ar4si}}, or the CWT Claims Header Parameter of {{-scitt-receipts}}.
 
+{{sec-iana-cmw-indicators}} registers new Conceptual Message Wrapper (CMW) Indicators {{-rats-cmw}} for Epoch ID and Nonce, so that they can be identified and carried as first-class conceptual messages.
+
 Epoch markers can be used in the following ways:
 
 - as embeddings in other data formats
@@ -158,10 +162,11 @@ This document makes use of the following terms from other documents:
 
 In this document, CDDL {{-CDDL}} is used to describe the data formats.  The examples in {{examples}} use the CBOR Extended Diagnostic Notation (EDN, {{-EDN}}).
 
-# Epoch IDs
+# Epoch IDs {#epoch-id}
 
 The RATS architecture introduces the concept of Epoch IDs that mark certain events during remote attestation procedures ranging from simple handshakes to rather complex interactions including elaborate freshness proofs.
-The Epoch Markers defined in this document are a solution that includes the lessons learned from TSAs, the concept of Epoch IDs defined in the RATS architecture, and provides several means to identify a new freshness epoch. Some of these methods are introduced and discussed in {{Section 10.3 of -rats-arch}} (the RATS architecture).
+The Epoch Markers defined in this document are a solution that includes the lessons learned from TSAs, the concept of Epoch IDs defined in the RATS architecture, and provides several means to identify a new freshness epoch.
+Some of these methods are introduced and discussed in {{Section 10.3 of -rats-arch}}.
 
 # Interaction Models {#interaction-models}
 
@@ -697,6 +702,16 @@ IANA is requested to register the following Content-Format IDs in the "CoAP Cont
 {: align="left" title="New CoAP Content Formats"}
 
 If possible, TBD1..TBD10 should be assigned in the 256..9999 range.
+
+## New CMW Indicators {#sec-iana-cmw-indicators}
+
+IANA is requested to allocate the following values in the "RATS Conceptual Message Wrapper (CMW) Indicators" registry within the {{!IANA.rats}} registry group:
+
+| Indicator Value | Conceptual Message Name | Reference |
+| -- | -- | -- |
+| TBD13 | Epoch ID | {{epoch-id}} of {{&SELF}} |
+| TBD14 | Nonce | {{Section 10.2 of -rats-arch}} |
+{: #tbl-cmw-indicators align="left" title="New CMW Indicators"}
 
 ## New SMI Numbers Registrations {#iana-smi}
 

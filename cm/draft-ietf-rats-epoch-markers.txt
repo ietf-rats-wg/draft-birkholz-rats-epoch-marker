@@ -31,8 +31,8 @@ Abstract
    including CBOR time tags, RFC 3161 TimeStampToken, and nonce-like
    structures.  It also defines a CWT Claim to embed Epoch Markers in
    RFC 8392 CBOR Web Tokens, which serve as vehicles for signed protocol
-   messages.  It further registers Epoch ID and Nonce as RATS Conceptual
-   Message Wrapper (CMW) Indicators.
+   messages.  Finally, it registers RATS Conceptual Message Wrapper
+   (CMW) Indicators for Epoch ID and Nonce.
 
 About This Document
 

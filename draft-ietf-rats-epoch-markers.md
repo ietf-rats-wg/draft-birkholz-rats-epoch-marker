@@ -429,12 +429,12 @@ To prove freshness, receivers SHOULD track the highest accepted counter and ensu
 ### Epoclet {#sec-epoclet}
 
 In a highly available service (e.g., a cloud attestation Verifier), maintaining per-session nonce state can cause scalability issues.
-One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on epoch ticks authenticated using the shared secret.
+One alternative is to use time-synchronized servers that share a symmetric key and produce and consume nonces based on epoch ticks signed using the shared secret.
 This means that a nonce minted by one server can be processed by any other server, avoiding the need for session "stickiness".
 This is an alternative Epoch Marker distribution mechanism to the one described in {{sec-signature-reqs}}.
 
 An `epoclet` is an Epoch ID variant that supports the above use case by encoding a POSIX time (i.e., the epoch identifier) alongside a minimal set of metadata.
-This is all authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
+This is all data-origin-authenticated with a symmetric key in a self-contained and compact token that fits within 64 bytes.
 This makes it easy to use with common Evidence retrieval ABIs, which tend to limit the size of the challenge parameter to 64 bytes.
 
 ~~~~ cddl

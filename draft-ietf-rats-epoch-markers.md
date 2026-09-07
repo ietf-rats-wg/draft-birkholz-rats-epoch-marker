@@ -27,8 +27,8 @@ author:
   city: Darmstadt
   country: Germany
 - name: Thomas Fossati
-  organization: Linaro
-  email: Thomas.Fossati@linaro.org
+  organization: NVIDIA
+  email: tfossati@nvidia.com
   country: Switzerland
 - name: Wei Pan
   org: Huawei Technologies

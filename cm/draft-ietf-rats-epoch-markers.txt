@@ -208,9 +208,9 @@ Internet-Draft                Epoch Markers               September 2026
    formats such as [I-D.ietf-rats-ar4si], or the CWT Claims Header
    Parameter of [I-D.ietf-scitt-architecture].
 
-   Section 9.5 registers Epoch ID and Nonce as new Conceptual Message
-   Wrapper (CMW) Indicators [RFC9999], so that Epoch Markers and nonces
-   can be identified and carried as first-class conceptual messages.
+   Section 9.5 registers new Conceptual Message Wrapper (CMW) Indicators
+   [RFC9999] for Epoch ID and Nonce, so that they can be identified and
+   carried as first-class conceptual messages.
 
    Epoch markers can be used in the following ways:
 

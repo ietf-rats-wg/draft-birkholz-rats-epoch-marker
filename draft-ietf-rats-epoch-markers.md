@@ -392,8 +392,9 @@ epoch-tick-list:
 Each Epoch Tick in the list is used in a consecutive generation of a conceptual message.
 Asserting freshness of a conceptual message including an Epoch Tick from the epoch-tick-list requires some state on the receiver side to assess if that Epoch Tick is the appropriate next unused Epoch Tick from the epoch-tick-list.
 
-The entire Epoch Tick List MAY be conveyed as an Epoch Bell-signed Epoch Marker.
-Once a receiver has verified and retained that list, subsequent conceptual messages MAY carry only an extracted Epoch Tick value.
+The Epoch Bell MUST provide the entire epoch-tick-list as an Epoch Bell-signed Epoch Marker.
+Once a receiver has verified and retained that list, it can use each extracted Epoch Tick value independently, with no attached Epoch Bell signature.
+Epoch Tick List cannot be used in cases where the issuer needs to be verified for each Epoch Tick individually during use.
 
 #### Creation
 
